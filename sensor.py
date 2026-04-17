@@ -26,7 +26,7 @@ def logPrint(log, serialConnect=False):
 
 def safe_call(func, error_code, socketMessage, serialConnect, *args, **kwargs):
     try:
-        return func(*args, **kwargs)
+        return func(socketMessage, serialConnect, *args, **kwargs)
     except Exception as e:
         logPrint('safe_call [err=%d] %s: %s' % (error_code, func.__name__, str(e)), serialConnect)
         socketMessage["aquaErrorNum"] = errorNumSet(error_code, socketMessage["aquaErrorNum"], serialConnect)
@@ -49,7 +49,7 @@ def errorNumReset(number, errorVal, serialConnect):
     return errorVal
 
 
-def connect_wifi(serialConnect):
+def connect_wifi(socketMessage, serialConnect):
     SSID = secrets['ssid']
     PASSWORD = secrets['pw']
     network.hostname("esp32-C3-aqua")
@@ -77,7 +77,7 @@ def connect_wifi(serialConnect):
     return wlan
 
 
-def disconnect_wifi(wlan, serialConnect):
+def disconnect_wifi(socketMessage, serialConnect, wlan):
     if wlan is None:
         return
     wlan.disconnect()
@@ -189,7 +189,7 @@ def computeTimeAndPump(socketMessage, serialConnect, timeTable, monthTable, slee
     return deepSleepTime, timeOfDay, pumpTime
 
 
-def pumpLogic(socketMessage, pumpTime, pumpDuration, timeOfDay, rtc, serialConnect):
+def pumpLogic(socketMessage, serialConnect, pumpTime, pumpDuration, timeOfDay, rtc):
     pump = machine.Pin(PIN_PUMP, machine.Pin.OUT)
     pump.value(0)
 

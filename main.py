@@ -54,21 +54,20 @@ socketMessage["aquaBootCount"] = boot_count
 logPrint("Script start", serialConnect)
 flash_led(3, led_out_green)
 
-wlan = safe_call(connect_wifi,   ERR_WIFI,     socketMessage, serialConnect, serialConnect)
-safe_call(dht22Get,              ERR_DHT22,    socketMessage, serialConnect, socketMessage, serialConnect)
-safe_call(tempWaterGet,          ERR_WATER,    socketMessage, serialConnect, socketMessage, serialConnect)
-safe_call(lire_tensions,         ERR_TENSION,  socketMessage, serialConnect, socketMessage, serialConnect)
-safe_call(capacityGet,           ERR_CAPACITY, socketMessage, serialConnect, socketMessage, serialConnect)
+wlan = safe_call(connect_wifi,   ERR_WIFI,     socketMessage, serialConnect)
+safe_call(dht22Get,              ERR_DHT22,    socketMessage, serialConnect)
+safe_call(tempWaterGet,          ERR_WATER,    socketMessage, serialConnect)
+safe_call(lire_tensions,         ERR_TENSION,  socketMessage, serialConnect)
+safe_call(capacityGet,           ERR_CAPACITY, socketMessage, serialConnect)
 
 result = safe_call(computeTimeAndPump, ERR_INTERP, socketMessage, serialConnect,
-                   socketMessage, serialConnect, timeTable, monthTable, sleepTable, pumpTable)
+                   timeTable, monthTable, sleepTable, pumpTable)
 if result is not None:
     deepSleepTime, timeOfDay, pumpTime = result
 
-safe_call(pumpLogic,       ERR_PUMP, socketMessage, serialConnect,
-          socketMessage, pumpTime, pumpDuration, timeOfDay, rtc, serialConnect)
-safe_call(pushToSocket,    ERR_PUSH, socketMessage, serialConnect, socketMessage, serialConnect)
-safe_call(disconnect_wifi, ERR_DISC, socketMessage, serialConnect, wlan, serialConnect)
+safe_call(pumpLogic,       ERR_PUMP, socketMessage, serialConnect, pumpTime, pumpDuration, timeOfDay, rtc)
+safe_call(pushToSocket,    ERR_PUSH, socketMessage, serialConnect)
+safe_call(disconnect_wifi, ERR_DISC, socketMessage, serialConnect, wlan)
 
 logPrint("Going to sleep for : %s min" % deepSleepTime, serialConnect)
 flash_led(3, led_out_red)
