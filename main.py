@@ -39,15 +39,15 @@ pumpTime      = []
 rtc = machine.RTC()
 serialConnect = True
 
-ERR_WIFI     = 1
-ERR_DHT22    = 2
-ERR_WATER    = 3
-ERR_TENSION  = 4
-ERR_CAPACITY = 5
-ERR_INTERP   = 6
-ERR_PUMP     = 7
+ERR_DHT22    = 1
+ERR_WATER    = 2
+ERR_TENSION  = 3
+ERR_CAPACITY = 4
+ERR_PUMP     = 5
+ERR_DISC     = 6
+ERR_INTERP   = 7
 ERR_PUSH     = 8
-ERR_DISC     = 9
+ERR_WIFI     = 9
 
 boot_count = update_boot_counter(rtc)
 socketMessage["aquaBootCount"] = boot_count
