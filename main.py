@@ -1,7 +1,7 @@
 import machine
 import time
 from utils import flash_led, logPrint, safe_call, errorNumSet
-from network import connect_wifi, disconnect_wifi, pushToSocket
+from network_tools import connect_wifi, disconnect_wifi, pushToSocket
 from sensors import (dht22Get, tempWaterGet, pumpLogic, lire_tensions,
                      update_boot_counter, capacityGet, computeTimeAndPump)
 led_out_green = machine.Pin(0, machine.Pin.OUT)
