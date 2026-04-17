@@ -49,10 +49,11 @@ ERR_WATER    = 2
 ERR_TENSION  = 3
 ERR_CAPACITY = 4
 ERR_PUMP     = 5
-ERR_DISC     = 6
-ERR_INTERP   = 7
+ERR_INTERP   = 6
+ERR_DISC     = 7
 ERR_PUSH     = 8
 ERR_WIFI     = 9
+
 
 boot_count = update_boot_counter(rtc)
 socketMessage["aquaBootCount"] = boot_count
